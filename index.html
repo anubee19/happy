@@ -1,0 +1,639 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shikha's Little Happiness Corner 💗</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Trebuchet MS', sans-serif;
+    background: linear-gradient(135deg, #ffe0ed, #e8d9ff, #d9f4ff);
+    min-height: 100vh;
+    overflow-x: hidden;
+    color: #784b75;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: radial-gradient(#ffffffaa 2px, transparent 2px);
+    background-size: 35px 35px;
+    pointer-events: none;
+}
+
+.screen {
+    display: none;
+    min-height: 100vh;
+    padding: 35px 18px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+    z-index: 2;
+}
+
+.screen.active {
+    display: flex;
+}
+
+h1 {
+    font-size: clamp(30px, 7vw, 48px);
+    margin-bottom: 18px;
+    color: #d45b91;
+}
+
+p {
+    line-height: 1.8;
+    font-size: 17px;
+}
+
+button {
+    border: none;
+    padding: 14px 25px;
+    border-radius: 30px;
+    background: #ed86b3;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 10px 5px;
+    box-shadow: 0 5px 15px #d879a455;
+    transition: .3s;
+}
+
+button:hover {
+    transform: scale(1.07);
+    background: #d45b91;
+}
+
+.card {
+    background: #ffffffdf;
+    backdrop-filter: blur(10px);
+    border-radius: 28px;
+    padding: 30px 22px;
+    max-width: 520px;
+    width: 100%;
+    box-shadow: 0 12px 35px #a76b9a30;
+}
+
+.emoji {
+    font-size: 75px;
+    margin-bottom: 15px;
+    animation: float 3s infinite ease-in-out;
+}
+
+@keyframes float {
+    50% { transform: translateY(-12px); }
+}
+
+.heart {
+    position: fixed;
+    bottom: -40px;
+    animation: rise linear forwards;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes rise {
+    to {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+#gameArea {
+    height: 310px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    background: linear-gradient(#ffe5f1, #f0e5ff);
+    margin-top: 20px;
+    border: 2px dashed #e9a1c8;
+}
+
+.star {
+    position: absolute;
+    font-size: 32px;
+    cursor: pointer;
+    animation: pop 1s infinite alternate;
+    user-select: none;
+}
+
+@keyframes pop {
+    to { transform: scale(1.2); }
+}
+
+.note {
+    background: #fff0f6;
+    padding: 22px;
+    border-radius: 20px;
+    margin: 15px 0;
+    font-size: 19px;
+    min-height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.small {
+    font-size: 13px;
+    opacity: .75;
+}
+
+.music-control {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 100;
+    margin: 0;
+    padding: 12px 18px;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- BACKGROUND MUSIC -->
+
+<audio id="bgMusic" loop>
+    <source src="song.mp3" type="audio/mpeg">
+</audio>
+
+<button class="music-control" id="musicButton"
+onclick="toggleMusic()">
+🎵 Play Music
+</button>
+
+<!-- FIRST SCREEN -->
+
+<section class="screen active" id="home">
+
+    <div class="card">
+
+        <div class="emoji">🧸💗</div>
+
+        <h1>Heyyy Shikha!</h1>
+
+        <p>
+            Excuse me, Miss Pretty Girl! 🌷<br>
+            I have received some very important news...
+        </p>
+
+        <br>
+
+        <p>
+            Someone special is having a little difficult day
+            and someone else has decided to fix it
+            with unlimited cuteness. 😂💕
+        </p>
+
+        <button onclick="go('welcome')">
+            Open your little surprise 💌
+        </button>
+
+        <p class="small">
+            Made with a ridiculous amount of love.
+        </p>
+
+    </div>
+</section>
+
+<!-- SECOND SCREEN -->
+
+<section class="screen" id="welcome">
+
+    <div class="card">
+
+        <div class="emoji">🐻🌸</div>
+
+        <h1>Welcome, Princess!</h1>
+
+        <p>
+            First of all, I am officially declaring
+            that today you are not allowed to be sad.
+            That's an order. 😤
+        </p>
+
+        <br>
+
+        <p>
+            Your only job is to relax, take it easy,
+            and let this little page entertain you.
+        </p>
+
+        <p style="margin-top:15px">
+            And yes, your personal entertainer is me.
+            Unfortunately, no refunds. 😂
+        </p>
+
+        <button onclick="go('mood')">
+            Let's have some fun 💗
+        </button>
+
+    </div>
+</section>
+
+<!-- THIRD SCREEN -->
+
+<section class="screen" id="mood">
+
+    <div class="card">
+
+        <div class="emoji">🌷</div>
+
+        <h1>One tiny question...</h1>
+
+        <p>What is Princess Shikha's mood right now?</p>
+
+        <button onclick="mood('happy')">😊 Happy-ish</button>
+        <button onclick="mood('bored')">🥱 Bored</button>
+        <button onclick="mood('grumpy')">😤 Grumpy</button>
+        <button onclick="mood('sleepy')">😴 Sleepy</button>
+
+        <div class="note" id="moodMessage">
+            Choose one, madam! 😂
+        </div>
+
+        <button onclick="go('game')">
+            Next surprise 🎈
+        </button>
+
+    </div>
+</section>
+
+<!-- FOURTH SCREEN: GAME -->
+
+<section class="screen" id="game">
+
+    <div class="card">
+
+        <h1>Catch Some Happiness! 💗</h1>
+
+        <p>
+            Tap the floating hearts and collect
+            10 happiness points!
+        </p>
+
+        <h2 style="margin-top:15px">
+            Score: <span id="score">0</span> 💕
+        </h2>
+
+        <div id="gameArea"></div>
+
+        <p id="gameMessage" style="margin-top:15px">
+            Let's see how lucky you are! 🌸
+        </p>
+
+        <button onclick="startGame()">
+            Start / Restart Game
+        </button>
+
+        <button onclick="go('notes')">
+            Next 💌
+        </button>
+
+    </div>
+</section>
+
+<!-- FIFTH SCREEN: LOVE NOTES -->
+
+<section class="screen" id="notes">
+
+    <div class="card">
+
+        <div class="emoji">💌</div>
+
+        <h1>Little Notes For You</h1>
+
+        <p>
+            Tap the button. I have something to tell you.
+        </p>
+
+        <div class="note" id="loveNote">
+            A little surprise is waiting here... 🥹
+        </div>
+
+        <button onclick="newNote()">
+            Open a love note 💗
+        </button>
+
+        <button onclick="go('jokes')">
+            Make me laugh 😂
+        </button>
+
+    </div>
+</section>
+
+<!-- SIXTH SCREEN: JOKES -->
+
+<section class="screen" id="jokes">
+
+    <div class="card">
+
+        <div class="emoji">🤣🐼</div>
+
+        <h1>Emergency Comedy Department</h1>
+
+        <div class="note" id="joke">
+            Patient Shikha has been prescribed
+            3 doses of cuteness. 😂
+        </div>
+
+        <button onclick="newJoke()">
+            Another joke 😂
+        </button>
+
+        <button onclick="go('final')">
+            One last thing... 🥹
+        </button>
+
+    </div>
+</section>
+
+<!-- FINAL SCREEN -->
+
+<section class="screen" id="final">
+
+    <div class="card">
+
+        <div class="emoji">🧸💖🌷</div>
+
+        <h1>One Last Hug!</h1>
+
+        <p>
+            Shikha, I wish I could take away
+            every little discomfort and make
+            your day a little brighter.
+        </p>
+
+        <br>
+
+        <p>
+            Please take care of yourself.
+            Don't forget to rest and be gentle
+            with yourself.
+        </p>
+
+        <br>
+
+        <h2 style="color:#dc6b9f">
+            You deserve all the happiness
+            in this world. 💗
+        </h2>
+
+        <br>
+
+        <p>And remember...</p>
+
+        <h2 style="margin-top:15px">
+            You are loved. Always. 🧿
+        </h2>
+
+        <div class="emoji" style="font-size:55px">
+            🫂💕
+        </div>
+
+        <p>With lots and lots of love ❤️</p>
+
+        <button onclick="go('home')">
+            Replay our little world 🌸
+        </button>
+
+    </div>
+</section>
+
+<script>
+
+// NAVIGATION
+
+function go(id) {
+
+    document.querySelectorAll('.screen').forEach(s => {
+        s.classList.remove('active');
+    });
+
+    document.getElementById(id).classList.add('active');
+
+    window.scrollTo(0, 0);
+}
+
+
+// BACKGROUND MUSIC
+
+const music = document.getElementById("bgMusic");
+const musicButton = document.getElementById("musicButton");
+
+function toggleMusic() {
+
+    if (music.paused) {
+
+        music.play().then(() => {
+            musicButton.innerHTML = "🎵 Music On";
+        }).catch(() => {
+            musicButton.innerHTML = "▶️ Try Again";
+        });
+
+    } else {
+
+        music.pause();
+        musicButton.innerHTML = "🔇 Music Off";
+
+    }
+}
+
+
+// FLOATING HEARTS AND BUTTERFLIES
+
+const decorations = [
+    '💗', '💕', '🦋', '🌸', '✨', '💖'
+];
+
+setInterval(() => {
+
+    const h = document.createElement('div');
+
+    h.className = 'heart';
+
+    h.innerHTML = decorations[
+        Math.floor(Math.random() * decorations.length)
+    ];
+
+    h.style.left = Math.random() * 100 + 'vw';
+
+    h.style.fontSize = (18 + Math.random() * 20) + 'px';
+
+    h.style.animationDuration =
+        (5 + Math.random() * 5) + 's';
+
+    document.body.appendChild(h);
+
+    setTimeout(() => h.remove(), 10000);
+
+}, 500);
+
+
+// MOOD MESSAGES
+
+function mood(type) {
+
+    const messages = {
+
+        happy:
+        "That's my girl!! Keep that beautiful smile. But don't forget to save some happiness for tomorrow! 🥹💕",
+
+        bored:
+        "Breaking news: A very pretty girl has been diagnosed with extreme boredom. Treatment: Unlimited hugs and chocolates! 😂🍫",
+
+        grumpy:
+        "Okay madam, everybody stand back. The Princess is grumpy. Sending one giant hug immediately! 🫂",
+
+        sleepy:
+        "Sleepy princess detected! Official permission granted to do absolutely nothing for a while. 👑💗"
+
+    };
+
+    document.getElementById('moodMessage').innerText =
+        messages[type];
+
+}
+
+
+// HAPPINESS GAME
+
+let score = 0;
+let gameInterval;
+
+function startGame() {
+
+    score = 0;
+
+    document.getElementById('score').innerText = score;
+
+    document.getElementById('gameMessage').innerText =
+        "Catch those hearts! 💗";
+
+    clearInterval(gameInterval);
+
+    const area = document.getElementById('gameArea');
+
+    area.innerHTML = '';
+
+    gameInterval = setInterval(() => {
+
+        if (score >= 10) {
+            clearInterval(gameInterval);
+            return;
+        }
+
+        const star = document.createElement('span');
+
+        star.className = 'star';
+
+        star.innerText = ['💗', '💖', '💕', '🌸'][
+            Math.floor(Math.random() * 4)
+        ];
+
+        star.style.left = Math.random() * 85 + '%';
+
+        star.style.top = Math.random() * 80 + '%';
+
+        star.onclick = () => {
+
+            score++;
+
+            document.getElementById('score').innerText = score;
+
+            star.remove();
+
+            if (score >= 10) {
+
+                clearInterval(gameInterval);
+
+                document.getElementById('gameMessage').innerText =
+                    "YOU DID IT!! 10/10 happiness unlocked! 🏆💗";
+
+            }
+
+        };
+
+        area.appendChild(star);
+
+        setTimeout(() => star.remove(), 1800);
+
+    }, 700);
+
+}
+
+
+// RANDOM LOVE NOTES
+
+const notes = [
+
+    "If I could send you one thing right now, it would be the biggest hug ever. 🫂",
+
+    "You know what's prettier than flowers? Your smile. 🌷",
+
+    "Just a reminder that somebody is always thinking about you. 💗",
+
+    "You are someone's favourite notification. And yes, that someone is me. 😂",
+
+    "I hope tomorrow brings you a thousand reasons to smile. 🥹",
+
+    "If cuteness was a competition, you would be banned for unfair advantage. 😭💕",
+
+    "Sending you invisible hugs, forehead kisses and unlimited love. 💌",
+
+    "You don't have to be productive every day. Sometimes just resting is enough. 🌸"
+
+];
+
+function newNote() {
+
+    const n = notes[
+        Math.floor(Math.random() * notes.length)
+    ];
+
+    document.getElementById('loveNote').innerText = n;
+
+}
+
+
+// FUNNY JOKES
+
+const jokes = [
+
+    "Why did the teddy bear say no to dessert? Because it was already stuffed! 🧸😂",
+
+    "Shikha's smile has a higher rating than Google. 100/10. 🌟",
+
+    "Scientists have discovered that 99% of the world's cuteness is concentrated in one person. Guess who? 😭",
+
+    "Doctor: What's your problem? Shikha: I need unlimited chocolates. Doctor: Understandable. 🍫",
+
+    "Breaking news: Local girl steals hearts again. Suspect is extremely pretty. 😂💕",
+
+    "If being dramatic was an Olympic sport, you would have gold, silver AND bronze. 🏆🤣"
+
+];
+
+function newJoke() {
+
+    document.getElementById('joke').innerText =
+        jokes[Math.floor(Math.random() * jokes.length)];
+
+}
+
+</script>
+
+</body>
+</html>
